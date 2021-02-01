@@ -27,23 +27,15 @@ export
 				var p = panel;
 				console.log('TODO');
 
-				var tmpDiv = document.createElement('div');
-				tmpDiv.classList.add('wrapper');
-				var cell1 = p.model.contentFactory.createCodeCell({});				
-				var cell2 = p.model.contentFactory.createCodeCell({});				
-				var cell3 = p.model.contentFactory.createCodeCell({});	
-							
-				p.model.cells.push(cell1);
-				p.model.cells.push(cell2);
-				p.model.cells.push(cell3);
-				p.content.node.lastElementChild.setAttribute("style", "width: 30%");
-				tmpDiv.appendChild(p.content.node.lastElementChild);
-				p.content.node.lastElementChild.setAttribute("style", "width: 30%");
-				tmpDiv.appendChild(p.content.node.lastElementChild);
-				p.content.node.lastElementChild.setAttribute("style", "width: 30%");
-				tmpDiv.appendChild(p.content.node.lastElementChild);
+				const activeCellIndex = Array.prototype.indexOf.call(p.content.node.children, p.content.activeCell.node);
+				var newCell = p.model.contentFactory.createCodeCell({})
+				p.model.cells.insert(activeCellIndex+1, newCell);
+				var wrapper = document.createElement('div');
+				wrapper.classList.add('wrapper');
+				wrapper.appendChild(p.content.node.children[activeCellIndex+1]);
+				wrapper.appendChild(p.content.activeCell.node);
+				p.content.node.insertBefore(wrapper, p.content.node.children[activeCellIndex]);
 
-				p.content.node.appendChild(tmpDiv);
 			}
 			return subDivideCell_fn;
 		}
