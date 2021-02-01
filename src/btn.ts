@@ -19,6 +19,7 @@ import {
 
 export
 	class SubDivideCellButtonExtension implements DocumentRegistry.IWidgetExtension<NotebookPanel, INotebookModel> {
+
     createNew(panel: NotebookPanel, context: DocumentRegistry.IContext<INotebookModel>): IDisposable{
 
 		let subDivideCell = (panel: NotebookPanel)=>{
@@ -52,6 +53,13 @@ export
 					p.content.node.insertBefore(wrapper, p.content.node.children[activeCellIndex]);
 				}
 				wrapper.appendChild(p.content.node.children[activeCellIndex+1]);
+
+				// adjust width based on the number of subcells
+				const width:number = 100/wrapper.children.length;
+				for (var i=0; i<wrapper.children.length; i++){
+					wrapper.children.item(i).setAttribute("style", "width:"+width.toString()+"%");
+				};
+
 			}
 			return subDivideCell_fn;
 		}
