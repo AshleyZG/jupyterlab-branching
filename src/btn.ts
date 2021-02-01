@@ -22,8 +22,28 @@ export
     createNew(panel: NotebookPanel, context: DocumentRegistry.IContext<INotebookModel>): IDisposable{
 
 		let subDivideCell = (panel: NotebookPanel)=>{
+
 			let subDivideCell_fn = ()=>{
+				var p = panel;
 				console.log('TODO');
+
+				var tmpDiv = document.createElement('div');
+				tmpDiv.classList.add('wrapper');
+				var cell1 = p.model.contentFactory.createCodeCell({});				
+				var cell2 = p.model.contentFactory.createCodeCell({});				
+				var cell3 = p.model.contentFactory.createCodeCell({});	
+							
+				p.model.cells.push(cell1);
+				p.model.cells.push(cell2);
+				p.model.cells.push(cell3);
+				p.content.node.lastElementChild.setAttribute("style", "width: 30%");
+				tmpDiv.appendChild(p.content.node.lastElementChild);
+				p.content.node.lastElementChild.setAttribute("style", "width: 30%");
+				tmpDiv.appendChild(p.content.node.lastElementChild);
+				p.content.node.lastElementChild.setAttribute("style", "width: 30%");
+				tmpDiv.appendChild(p.content.node.lastElementChild);
+
+				p.content.node.appendChild(tmpDiv);
 			}
 			return subDivideCell_fn;
 		}
@@ -37,7 +57,7 @@ export
 		});
       
 		// Add the toolbar button to the notebook
-		panel.toolbar.insertItem(11, 'runAllCells', button);
+		panel.toolbar.addItem('runAllCells', button);
 		
 		// The ToolbarButton class implements `IDisposable`, so the
 		// button *is* the extension for the purposes of this method.
