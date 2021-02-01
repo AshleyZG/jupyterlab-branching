@@ -25,17 +25,33 @@ export
 
 			let subDivideCell_fn = ()=>{
 				var p = panel;
+				var activeCellIndex = 0;
+				var wrapper: HTMLElement;
 				console.log('TODO');
 
-				const activeCellIndex = Array.prototype.indexOf.call(p.content.node.children, p.content.activeCell.node);
+				const isInWrapper: boolean = p.content.activeCell.node.parentElement.classList.contains("wrapper");
+
+				// check if activeCell is in a wrapper
+				if (isInWrapper){
+					activeCellIndex = Array.prototype.indexOf.call(p.content.node.children, p.content.activeCell.node.parentElement);
+				}				
+				else{
+					activeCellIndex = Array.prototype.indexOf.call(p.content.node.children, p.content.activeCell.node);
+				}
+
 				var newCell = p.model.contentFactory.createCodeCell({})
 				p.model.cells.insert(activeCellIndex+1, newCell);
-				var wrapper = document.createElement('div');
-				wrapper.classList.add('wrapper');
-				wrapper.appendChild(p.content.node.children[activeCellIndex+1]);
-				wrapper.appendChild(p.content.activeCell.node);
-				p.content.node.insertBefore(wrapper, p.content.node.children[activeCellIndex]);
 
+				if (isInWrapper){
+					wrapper = p.content.activeCell.node.parentElement;
+				}
+				else{
+					wrapper = document.createElement('div');
+					wrapper.classList.add('wrapper');
+					wrapper.appendChild(p.content.activeCell.node);	
+					p.content.node.insertBefore(wrapper, p.content.node.children[activeCellIndex]);
+				}
+				wrapper.appendChild(p.content.node.children[activeCellIndex+1]);
 			}
 			return subDivideCell_fn;
 		}
