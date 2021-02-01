@@ -54,12 +54,24 @@ export
 				}
 				wrapper.appendChild(p.content.node.children[activeCellIndex+1]);
 
+				if (!isInWrapper){
+					var sidebar = document.createElement('div');
+					sidebar.classList.add('hidetab');
+					wrapper.appendChild(sidebar);	
+				}
+				else{
+					wrapper.appendChild(wrapper.children[wrapper.children.length-2]);
+				}
+				// wrapper.appendChild()
+
 				// adjust width based on the number of subcells
-				const width:number = 100/wrapper.children.length;
-				for (var i=0; i<wrapper.children.length; i++){
+				const width:number = 95/(wrapper.children.length-1);
+				for (var i=0; i<wrapper.children.length-1; i++){
 					wrapper.children.item(i).setAttribute("style", "width:"+width.toString()+"%");
 				};
 
+
+				
 			}
 			return subDivideCell_fn;
 		}
@@ -82,3 +94,6 @@ export
 }
 
 // export SubDivideCellButtonExtension; 
+
+
+// export 

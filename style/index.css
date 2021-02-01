@@ -1,8 +1,26 @@
 .wrapper {
     display: flex;
+    position: relative;
 }
 .mykid{
     width: 100px;
     height: 100px;
     margin: 5px;
+}
+
+.tmpdiv{
+    display: flex;
+    height: 20px;
+    background-color: burlywood;
+    /* width: ; */
+}
+
+.hidetab{
+    height: 100%;
+    width: 5%;
+    background-color: antiquewhite;
+    /* border: antiquewhite; */
+    /* margin-left: auto; */
+    right: 0;
+    position: absolute;
 }
